@@ -20,10 +20,10 @@
 
   // === 2. KEYBOARD BLOCKING ===
   document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
-  });
+    if (e.keyCode === 123 || e.key === 'F12') { e.preventDefault(); e.stopPropagation(); return false; }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.key === 'I' || e.key === 'J' || e.key === 'i' || e.key === 'j')) { e.preventDefault(); e.stopPropagation(); return false; }
+    if (e.ctrlKey && (e.keyCode === 85 || e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
+  }, true);
 
   // === 3. ANTI-DEBUG ===
   var _blocked = false;
