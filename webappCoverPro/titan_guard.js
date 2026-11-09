@@ -8,7 +8,7 @@
 
     // === 1. DOMAIN LOCK ===
   // Permette: titan-v64.com, localhost, e file locale (per test)
- var _d = [atob('dGl0YW4tdjY0LmNvbQ=='), atob('d3d3LnRpdGFuLXY2NC5jb20='), 'cover.titan-v64.com', 'mellow-meerkat-ca44ef.netlify.app', 'titanv64motore.github.io', 'autumn-river-907c.titan-cover.workers.dev', 'localhost', '127.0.0.1', ''];
+ var _d = ['bitter-cherry-5e0a.titan-cover.workers.dev', 'localhost', '127.0.0.1', ''];
 
 
   var _h = window.location.hostname;
