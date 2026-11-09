@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TITAN SPECTRAL CONTROL - KDP ELITE</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="titan_ui.css">
+    <!-- INIEZIONE FONT D'ELITE (ULTRA-VISION) -->
+    
+    <!-- INIEZIONE MOTORE 3D ALL'AVANGUARDIA -->
+    <script src="three.min.js"></script>
+</head>
+<body>
+<!-- HEADER: HUD DASHBOARD (CABINA DI PILOTAGGIO) -->
+<header class="titan-header">
+    <div class="header-left">
+        <div class="lang-container">
+            <button id="lang-btn" class="lang-btn">🌐</button>
+            <div id="lang-menu" class="lang-dropdown">
+                <div class="lang-opt" data-lang="it">ITALIANO</div>
+                <div class="lang-opt" data-lang="en">ENGLISH</div>
+                <div class="lang-opt" data-lang="es">ESPAÑOL</div>
+                <div class="lang-opt" data-lang="fr">FRANÇAIS</div>
+                <div class="lang-opt" data-lang="de">DEUTSCH</div>
+                <div class="lang-opt" data-lang="ru">РУССКИЙ</div>
+                <div class="lang-opt" data-lang="zh">中文</div>
+            </div>
+        </div>
+        <div class="brand">WEB_COVER.2026</div>
+    </div>
+
+    <div class="header-center">
+        <div id="glue-monitor-hud" class="hud-display">
+            <div class="hud-item">
+                <span id="spine-mm-label-head" class="hud-label" data-i18n="dorso">DORSO:</span>
+                <span id="spine-mm-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span id="glue-type-label-head" class="hud-label" data-i18n="colla">COLLA:</span>
+                <span id="glue-type-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span id="glue-mass-label-head" class="hud-label" data-i18n="massa" style="cursor: default !important;">MASSA:</span>
+                <span id="glue-mass-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span id="format-label-head" class="hud-label" data-i18n="formato">FORMATO:</span>
+                <span id="format-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span id="pages-count-label-head" class="hud-label" data-i18n="pagine">PAGINE:</span>
+                <span id="pages-count-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label" data-i18n="carta">CARTA:</span>
+                <span id="paper-type-label" class="hud-val">---</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label" data-i18n="cover">COVER:</span>
+                <span id="cover-structure-label" class="hud-val">---</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <button id="btn-generate-fiverr-kit" class="btn-header-pdf" data-i18n="generate_fiverr_kit">KIT PRO</button>
+        <button id="btn-generate-pdf-head" class="btn-header-pdf" data-i18n="generate_pdf">GENERA PDF</button>
+        <button id="reset-btn" class="btn-reset" data-i18n="reset">RESET</button>
+    </div>
+</header>
+
+<main class="main-layout">
+    <!-- MINI-SIDEBAR SINISTRA -->
+    <nav class="mini-sidebar left-bar">
+     <div class="mini-btn upgrade-btn" id="btn-subscribe" data-i18n-tooltip="subscribe">
+    <span class="icon">💎</span>
+</div>
+        <div class="mini-btn" id="btn-open-left-dock" data-i18n-tooltip="tooltip_chat" data-tooltip="CHAT AI ">
+            <span class="icon">💬</span>
+        </div>
+        <div class="mini-btn rtl-selector-trigger" data-tooltip="TIPOGRAFIA RTL">
+            <span class="icon">🌍</span>
+            <div class="rtl-hover-matrix">
+                <div class="rtl-opt" onclick="TITAN_APP.switchLanguage('ar')">العربية</div>
+                <div class="rtl-opt" onclick="TITAN_APP.switchLanguage('he')">עברית</div>
+                <div class="rtl-opt" style="color:var(--accent-repair); border-top:1px solid #333;" onclick="TITAN_APP.switchLanguage('it')">ITALIANO (BACK)</div>
+            </div>
+        </div>
+        <div class="mini-btn" id="btn-open-library" data-i18n-tooltip="tooltip_library" data-tooltip="LIBRERIA ASSET">
+            <span class="icon">🖼️</span>
+        </div>
+    </nav>
+
+    <!-- PANNELLO DINAMICO SINISTRO (DOCK CHAT AI) -->
+    <aside id="dock-left" class="side-dock left-dock">
+        <header class="dock-header">
+            <span class="dock-title" data-i18n="neural_bridge">AETHEL NEURAL BRIDGE</span>
+            <div class="dock-actions">
+                <button class="v-btn" id="clear-chat" title="Pulisci Chat">🧹</button>
+                <button class="close-dock-btn" onclick="document.getElementById('btn-open-left-dock').click()">✕</button>
+            </div>
+        </header>
+        <div class="dock-content chat-layout">
+            <div id="ai-chat-messages" class="chat-viewport">
+                <div class="ai-msg" data-i18n="ai_waiting">AETHEL: awaiting ballistics instructions...</div>
+            </div>
+            <div class="chat-input-zone">
+                <div class="media-bridge-bar">
+                    <button class="media-btn" id="chat-upload-img" title="Carica Immagine/Foto">📂</button>
+
+                    <input type="file" id="chat-file-input" hidden accept="image/*">
+                </div>
+                <div class="input-elite-wrapper">
+                    <textarea id="chat-input" data-i18n-placeholder="command_aethel" placeholder="Comanda AETHEL..." rows="1"></textarea>
+                    <button id="chat-send-btn" class="chat-action-btn">💬</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- VIEWPORT SPECTRAL (CENTRALE) -->
+    <section class="viewport" id="viewport-main">
+        <div id="titan-canvas-wrapper" class="canvas-wrapper">
+            <canvas id="main-canvas"></canvas>
+            <div id="kdp-barcode-zone" class="barcode-white-pure"></div>
+
+            <!-- 🎹 NEURAL TEXT PORTAL: SENSORE DI SCRITTURA DIRETTA 🎹 -->
+            <input type="text" id="neural-text-input" style="position:absolute; opacity:0; pointer-events:none; z-index:-1">
+
+            <!-- 🌌 QUANTUM GHOST HUB: CONTROLLI DINAMICI TESTO 🌌 -->
+            <div id="text-control-hub" class="quantum-ghost-hub" style="display:none">
+                <div class="ghost-header">DESIGN TOOLS <span class="ghost-close" onclick="TITAN_APP.closeHub()">✕</span></div>
+                <div class="ghost-body">
+                    <div class="ghost-row">
+                        <!-- 🎨 MINI QUADRATINO CROMATICO (ELITE PICKER) 🎨 -->
+                        <input type="color" id="hub-color-picker" class="ghost-color" value="#ffffff" oninput="TITAN_APP.setHubColor(this.value)">
+
+                        <select id="hub-font-selector" class="ghost-select" onchange="TITAN_APP.setHubFont(this.value)">
+                            <option value="Arial">MODERNO</option>
+                            <option value="'Cinzel', serif">MONUMENTALE</option>
+                            <option value="'Great Vibes', cursive">FIRMA</option>
+                            <option value="'Montserrat', sans-serif">ELITE</option>
+                        </select>
+                    </div>
+                    <div class="ghost-sliders">
+                        <div class="ghost-sl-item">
+                            <label>GRANDEZZA</label>
+                            <input type="range" id="hub-size-slider" min="5" max="150" value="25" oninput="TITAN_APP.updateHubText()">
+                        </div>
+                        <div class="ghost-sl-item">
+                            <label>OMBRA ESTERNA</label>
+                            <input type="range" id="hub-shadow-slider" min="0" max="30" value="0" oninput="TITAN_APP.updateHubText()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-info" id="canvas-measurements" data-i18n="system_waiting">
+            SISTEMA IN ATTESA DI INPUT...
+        </div>
+    </section>
+
+    <!-- PANNELLO DINAMICO DESTRO -->
+    <aside id="dock-right" class="side-dock right-dock">
+        <section class="dock-section">
+            <header class="dock-header">
+                <span class="dock-title" data-i18n="preview_3d">ANTEPRIMA 3D</span>
+                <div class="dock-actions-right">
+                    <button class="close-dock-btn" onclick="document.getElementById('btn-open-right-dock').click()">✕</button>
+                </div>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="toggle-3d-active">
+                    <label for="toggle-3d-active"></label>
+                </div>
+            </header>
+            <div class="dock-content">
+                <div class="viewport-3d-container" id="open-3d-full">
+                    <div id="canvas-3d-placeholder" class="v3d-canvas">
+                        <div class="v3d-empty-msg" data-i18n="system_3d_ready">SISTEMA 3D PRONTO</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="dock-section border-top">
+            <header class="dock-header">
+                <span class="dock-title" data-i18n="layer_structure">STRUTTURA LAYER</span>
+            </header>
+            <div class="dock-content">
+                <div id="layers-stack-container" class="layers-stack-visualizer">
+                    <div class="empty-layer-banner" data-i18n="no_active_layers">NESSUN LAYER ATTIVO</div>
+                </div>
+            </div>
+        </section>
+        <section class="dock-section border-top">
+            <header class="dock-header">
+                <span class="dock-title" data-i18n="barcode_isbn">BARCODE & ISBN</span>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="toggle-barcode-master" checked>
+                    <label for="toggle-barcode-master"></label>
+                </div>
+            </header>
+            <div class="dock-content">
+                <div class="barcode-terminal">
+                    <div class="isbn-input-group">
+                        <label class="titan-label-mini" data-i18n="manual_isbn">ISBN-13 MANUALE</label>
+                        <input type="text" id="manual-isbn-input" class="titan-input-elite" placeholder="9780000000000" maxlength="17">
+                    </div>
+                    <div class="isbn-input-group" style="margin-top: 10px;">
+                        <label class="titan-label-mini" data-i18n="price_ean5">PREZZO EAN-5 (5 DIGIT)</label>
+                        <input type="text" id="manual-price-input" class="titan-input-elite" placeholder="51995" maxlength="5">
+                    </div>
+                    <div id="barcode-live-preview" class="barcode-preview-box">
+                        <div class="v-empty" data-i18n="waiting_code">IN ATTESA CODICE...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <nav class="mini-sidebar right-bar">
+        <div class="mini-btn" id="btn-open-right-dock" data-i18n-tooltip="tooltip_controls" data-tooltip="STRUMENTI DI CONTROLLO">
+            <span class="icon">📦</span>
+        </div>
+    </nav>
+</main>
+
+<div id="overlay-3d-full" class="titan-overlay" style="display:none">
+    <button id="close-3d-full" class="close-btn-elite">✖</button>
+    <div id="container-3d-full" class="full-v3d-canvas"></div>
+</div>
+
+<div id="portal-vision" class="titan-overlay" style="display:none">
+    <div class="portal-container">
+        <header class="portal-header">
+            <div class="portal-title" data-i18n="asset_library">TITAN ASSET PORTAL</div>
+            <button id="close-portal" class="close-btn-mini">✕</button>
+        </header>
+        <div class="portal-search-zone">
+            <input type="text" id="lib-search-input" class="portal-search-input" placeholder="Cerca asset..." data-i18n-placeholder="search_assets">
+
+            <!-- 🚀 NEURAL GATEWAY: PORTALE DI CARICAMENTO ESTERNO 🚀 -->
+            <div class="portal-upload-zone" style="margin-top:12px; margin-bottom:8px;">
+                <button id="btn-upload-from-device" class="upload-btn-elite" style="width:100%; cursor:pointer; background:rgba(0, 212, 255, 0.1); border:1px solid var(--accent-repair); color:var(--accent-repair); padding:8px; border-radius:4px; font-weight:bold; font-size:12px; transition:all 0.3s;" data-i18n="upload_device">CARICA DA DISPOSITIVO</button>
+                <input type="file" id="lib-upload-input" hidden accept="image/*">
+            </div>
+
+            <div class="portal-target-selector" id="lib-target-selector">
+                <button class="target-btn active" data-target="FRONT">FRONT</button>
+                <button class="target-btn" data-target="BACK">BACK</button>
+                <button class="target-btn" data-target="SPINE">SPINE</button>
+                <button class="target-btn" data-target="FULL">FULL COVER</button>
+            </div>
+        </div>
+        <div id="image-library-grid" class="portal-grid"></div>
+    </div>
+</div>
+
+<!-- PAYPAL OVERLAY SEPARATO (non dentro il paywall) -->
+<div id="paypal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:999999; justify-content:center; align-items:center;">
+    <div style="background:#0f0f0f; border:2px solid #00d4ff; border-radius:20px; padding:50px; max-width:500px; text-align:center; box-shadow:0 25px 60px rgba(0,0,0,0.95);">
+        <div style="font-size:70px; margin-bottom:20px;">❤️</div>
+        <div data-i18n="paywall_card_title" style="font-size:24px; font-weight:bold; color:#fff; margin-bottom:15px;">SOSTIENI IL PROGETTO</div>
+        <div data-i18n="paywall_card_desc" style="font-size:16px; color:#ccc; margin-bottom:30px; line-height:1.6;">
+            Il software è 100% gratuito per tutti. Se apprezzi la qualità e vuoi sostenere lo sviluppo, lascia un'offerta libera!
+        </div>
+        <div id="paypal-container-MLP9GZH2R47UL" style="margin-bottom:20px;"></div>
+        <a href="https://www.paypal.com/ncp/payment/MLP9GZH2R47UL" target="_blank" style="display:inline-block; background-color:#0070ba; color:#fff; font-size:18px; font-weight:bold; padding:14px 35px; border-radius:30px; text-decoration:none; box-shadow:0 4px 15px rgba(0,112,186,0.4);">
+            ☕ Sostieni con PayPal
+        </a>
+        <div style="margin-top:25px;">
+            <button onclick="document.getElementById('paypal-overlay').style.display='none'" style="background:none; border:none; color:#fff; font-size:24px; cursor:pointer;">✕</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// Quando clicchi 💎, apri il PayPal overlay
+document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('btn-subscribe');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.getElementById('paypal-overlay').style.display = 'flex';
+        });
+    }
+});
+
+// PayPal SDK
+function initPayPal() {
+    if (window.paypal && document.getElementById('paypal-container-MLP9GZH2R47UL')) {
+        try {
+            paypal.HostedButtons({
+                hostedButtonId: "MLP9GZH2R47UL"
+            }).render("#paypal-container-MLP9GZH2R47UL");
+        } catch(e) {
+            setTimeout(initPayPal, 2000);
+        }
+    } else {
+        setTimeout(initPayPal, 1000);
+    }
+}
+</script>
+<script src="https://www.paypal.com/sdk/js?client-id=BAAwdM64GVYoj7SgiGqa5_G8NiZwn677IQbNHUtZ1QdFs0hwLJ2KAbP3ZvZKfSQuahjN6Szg&components=hosted-buttons&currency=EUR" onload="initPayPal()"></script>
+
+
+
+<div id="master-hud" class="master-admin-panel" style="display:none">
+    <div class="admin-header">
+        TITAN COMMANDER HUB
+        <span onclick="this.parentElement.parentElement.style.display='none'" style="float:right; cursor:pointer; padding:0 5px; color:#ff1e1e; font-weight:bold;">✕</span>
+    </div>
+    <div class="admin-row">
+        <span>STATUS:</span>
+        <span class="status-ok">ACTIVE</span>
+    </div>
+    <div class="admin-row">
+        <span>GHOST MODE:</span>
+        <div class="toggle-switch">
+            <input type="checkbox" id="master-online-toggle">
+            <label for="master-online-toggle"></label>
+        </div>
+    </div>
+    <div class="admin-row" style="border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;">
+        <span id="vault-count">0 ASSETS MEMORIZZATI</span>
+    </div>
+</div>
+
+<script src="jspdf.umd.min.js"></script>
+<script src="pdf-lib.min.js"></script>
+<script src="titan_guard.js"></script>
+<script src="TITAN_Global_Engine.js"></script>
+<script src="titan_app.js"></script>
+<script src="titan_library.js"></script>
+<footer style="text-align:center; padding:20px; font-size:13px; color:#666;">
+    <a href="https://www.titan-v64.com/" target="_blank" style="color:#00d4ff; text-decoration:none;">
+        Privacy Policy
+    </a>
+    · TITAN © 2026
+</footer>
+
+</body>
+</html>

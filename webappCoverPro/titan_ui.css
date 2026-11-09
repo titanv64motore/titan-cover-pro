@@ -1,0 +1,606 @@
+@font-face {
+    font-family: 'Amiri';
+    src: url('Amiri-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Amiri';
+    src: url('Amiri-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Assistant';
+    src: url('Assistant-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Amiri';
+    src: url('Amiri-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Amiri';
+    src: url('Amiri-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/**
+ * TITAN SPECTRAL UI - VANTABLACK LUXURY STYLE
+ * Universal Adaptive Architecture V.2026
+ * Absolute Precision - No Valuta - No Human Limits
+ */
+:root {
+    --bg-deep: #050505;
+    --panel-bg: #0f0f0f;
+    --accent-blue: #00d4ff;
+    --accent-repair: #ff8c00;
+    --accent-danger: #ff4d4d;
+    --accent-gold: #ffcc00;
+    --accent-terminal: #00ff41;
+    --text-main: #e0e0e0;
+    --border-color: #222;
+    --border-light: #444;
+    --white-pure: #ffffff;
+    --canvas-bg: #e0e0e0;
+    --ash-grey-light: #f5f5f5;
+    --ash-grey-dark: #333333;
+    --header-h: 70px;
+}
+
+* { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0; overflow: hidden;
+    height: 100vh; width: 100vw;
+    display: flex; flex-direction: column;
+}
+
+body[style*="direction: rtl"] {
+    font-family: 'Amiri', serif;
+}
+
+/* HEADER HUD - ADATTIVO */
+.titan-header {
+    height: var(--header-h); border-bottom: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 20px; background: var(--panel-bg);
+    z-index: 1000; transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-container { position: relative; display: inline-block; }
+.lang-btn {
+    background: none; border: 1px solid #333; color: var(--accent-blue);
+    font-size: 1.2rem; cursor: pointer; padding: 5px 12px; transition: 0.3s;
+}
+.lang-btn:hover { border-color: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+
+.lang-dropdown {
+    position: absolute; top: 100%; inset-inline-start: 0; margin-top: 10px;
+    background: #0a0a0a; border: 1px solid var(--border-light);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    display: none; flex-direction: column; min-width: 140px;
+    z-index: 1001;
+}
+.lang-dropdown.show { display: flex !important; animation: spectral-fade 0.2s ease; }
+.lang-opt { padding: 10px 15px; font-size: 0.7rem; font-weight: 900; color: #888; cursor: pointer; transition: 0.2s; border-bottom: 1px solid #1a1a1a; text-transform: uppercase; }
+.lang-opt:hover { background: #1a1a1a; color: var(--accent-blue); }
+
+@keyframes spectral-fade { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+.hud-display {
+    display: flex; gap: 30px; background: #000; padding: 8px 25px;
+    border: 1px solid #333; border-radius: 4px;
+    transition: all 0.3s;
+}
+.hud-item { display: flex; flex-direction: column; align-items: center; }
+.hud-label { font-size: 0.55rem; color: var(--accent-blue); letter-spacing: 1px; font-weight: 900; }
+.hud-val { font-size: 0.9rem; color: var(--white-pure); font-family: 'Courier New', monospace; font-weight: 900; }
+
+/* LUXURY FEEDBACK PER CARTA E COVER */
+#paper-type-label, #cover-structure-label { color: var(--accent-gold); }
+
+.btn-header-pdf {
+    background: var(--white-pure); color: #000; border: 1px solid var(--white-pure);
+    padding: 8px 20px; font-weight: 900; cursor: pointer; font-size: 0.7rem;
+    letter-spacing: 1px; transition: 0.3s;
+}
+.btn-header-pdf:active { border-color: var(--accent-blue); box-shadow: 0 0 15px var(--accent-blue); color: var(--accent-blue); }
+
+.header-left, .header-right { display: flex; align-items: center; gap: 15px; }
+.brand {
+    font-weight: 900; letter-spacing: 3px; color: var(--accent-blue); font-size: 1rem;
+    user-select: none; -webkit-user-select: none;
+    cursor: crosshair; transition: 0.2s;
+}
+.brand:active { transform: scale(0.95); text-shadow: 0 0 10px #fff; }
+
+/* MINI-SIDEBARS */
+.mini-sidebar {
+    width: 48px; background: var(--panel-bg);
+    display: flex; flex-direction: column; align-items: center;
+    padding-top: 15px; z-index: 100;
+}
+.right-bar { border-left: 1px solid var(--border-color); }
+.left-bar { border-right: 1px solid var(--border-color); }
+
+.mini-btn {
+    width: 40px; height: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; position: relative; transition: 0.2s;
+    filter: grayscale(1); opacity: 0.5;
+}
+.mini-btn:hover, .mini-btn.active { filter: grayscale(0); opacity: 1; transform: scale(1.1); }
+
+/* RTL HOVER MATRIX (ALIEN TECH) */
+.rtl-selector-trigger { position: relative; }
+.rtl-selector-trigger::before {
+    content: ""; position: absolute; top: 0; inset-inline-start: 0; width: 70px; height: 100%; background: transparent; z-index: 1;
+}
+.rtl-hover-matrix {
+    position: absolute; inset-inline-start: 55px; top: 0;
+    background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--accent-blue);
+    display: none; flex-direction: column; min-width: 130px; box-shadow: 0 10px 50px rgba(0, 212, 255, 0.3);
+    z-index: 2000; border-radius: 4px;
+}
+.rtl-selector-trigger:hover .rtl-hover-matrix { display: flex; animation: matrix-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.rtl-opt { padding: 12px 20px; font-size: 0.75rem; font-weight: 900; color: var(--text-main); cursor: pointer; transition: 0.2s; border-bottom: 1px solid #222; letter-spacing: 1px; }
+.rtl-opt:hover { background: var(--accent-blue); color: #000; }
+@keyframes matrix-slide { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
+
+/* PORTAL VISION - LUXURY OVERLAY */
+.portal-container {
+    width: 80vw; height: 80vh; background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(30px); border: 1px solid var(--accent-blue);
+    display: flex; flex-direction: column; box-shadow: 0 0 100px rgba(0, 212, 255, 0.2);
+    border-radius: 8px; overflow: hidden; transition: all 0.3s;
+}
+.portal-header {
+    padding: 20px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #222; background: rgba(0,0,0,0.5);
+}
+.portal-title { font-size: 1.2rem; font-weight: 900; color: var(--accent-blue); letter-spacing: 3px; }
+.close-btn-mini { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+.close-btn-mini:hover { opacity: 1; transform: rotate(90deg); color: var(--accent-danger); }
+
+.portal-search-zone { padding: 20px; background: #0a0a0a; }
+.portal-search-input {
+    width: 100%; background: #000; border: 1px solid #333; color: var(--white-pure);
+    padding: 15px 25px; font-size: 1rem; font-weight: 600; border-radius: 4px;
+    transition: 0.3s;
+}
+.portal-search-input:focus { border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+
+/* PORTAL TARGET SELECTOR (WORLD CLASS) */
+.portal-target-selector {
+    display: flex; gap: 10px; margin-top: 15px; justify-content: center; flex-wrap: wrap;
+}
+.target-btn {
+    background: #111; border: 1px solid #333; color: #888;
+    padding: 6px 15px; font-size: 0.6rem; font-weight: 900;
+    cursor: pointer; transition: 0.3s; letter-spacing: 1px;
+}
+.target-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+.target-btn.active { background: var(--accent-blue); color: #000; border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+
+.portal-grid {
+    flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;
+    padding: 20px; overflow-y: auto; background: #050505;
+}
+.portal-grid::-webkit-scrollbar { width: 4px; }
+.portal-grid::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 10px; }
+
+/* TOOLTIP CRYSTAL WHITE */
+.mini-btn::after {
+    content: attr(data-tooltip); position: absolute;
+    background: var(--white-pure); color: #000000;
+    padding: 5px 12px; font-size: 0.65rem; font-weight: 900;
+    white-space: nowrap; pointer-events: none; opacity: 0;
+    transition: 0.2s; letter-spacing: 1.2px; z-index: 200;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid #ccc;
+}
+.right-bar .mini-btn::after { inset-inline-end: 55px; }
+.left-bar .mini-btn::after { inset-inline-start: 55px; }
+.mini-btn:hover::after { opacity: 1; }
+
+.main-layout { flex: 1; display: flex; overflow: hidden; position: relative; }
+.viewport {
+    flex: 1; background: #dcdcdc; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 30px; position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.canvas-wrapper {
+    background: var(--canvas-bg); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 2px #999;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    transition: transform 0.3s ease;
+}
+
+.full-v3d-canvas {
+    width: 90vw; height: 85vh; background: #000000; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 0 100px rgba(0,0,0,1);
+    position: relative; z-index: 2100;
+}
+
+.close-btn-elite {
+    position: absolute; top: 30px; right: 40px; background: rgba(0,0,0,0.8);
+    border: 2px solid var(--white-pure); color: var(--white-pure); font-size: 2rem;
+    width: 60px; height: 60px; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; transition: 0.3s; z-index: 3000; box-shadow: 0 0 30px rgba(0,0,0,1);
+}
+.close-btn-elite:hover { background: var(--accent-danger); border-color: var(--accent-danger); transform: rotate(90deg) scale(1.1); }
+
+.canvas-info { margin-top: 25px; color: #444; font-weight: 800; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+
+.side-dock {
+    width: 0; background: var(--panel-bg); display: flex; flex-direction: column;
+    overflow-y: auto; overflow-x: hidden; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 500;
+}
+.side-dock.active { width: 340px; }
+.right-dock.active { border-left: 1px solid var(--border-color); }
+.left-dock.active { border-right: 1px solid var(--border-color); }
+.side-dock::-webkit-scrollbar { width: 4px; }
+.side-dock::-webkit-scrollbar-track { background: var(--bg-deep); }
+.side-dock::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 10px; }
+
+.dock-header {
+    height: 40px; padding: 0 15px; display: flex; justify-content: space-between;
+    align-items: center; background: #151515; border-bottom: 1px solid #222;
+}
+.dock-title { font-size: 0.6rem; font-weight: 900; letter-spacing: 1.5px; color: var(--accent-blue); text-transform: uppercase; }
+.dock-content { flex: 1; display: flex; flex-direction: column; padding: 15px; overflow-y: visible; }
+
+.chat-layout { height: 100%; display: flex; flex-direction: column; gap: 15px; }
+.chat-viewport { flex: 1; background: var(--ash-grey-light); border: 1px solid #ccc; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.ai-msg {
+    font-size: 0.9rem; color: var(--ash-grey-dark); background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1); padding: 12px; border-radius: 4px;
+    line-height: 1.5; font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700;
+}
+.user-msg {
+    font-size: 0.9rem; color: #555; background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05); padding: 10px; border-radius: 4px;
+    line-height: 1.4; text-align: right; font-weight: 600;
+}
+
+.chat-input-zone { min-height: 140px; display: flex; flex-direction: column; gap: 10px; background: #e8e8e8; padding: 12px; border: 1px solid #ccc; }
+.media-bridge-bar { display: flex; gap: 15px; padding-bottom: 8px; border-bottom: 1px solid #ccc; }
+.media-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; transition: 0.2s; opacity: 0.7; color: #333; }
+.media-btn:hover { opacity: 1; transform: scale(1.1); }
+
+.input-elite-wrapper { display: flex; gap: 10px; align-items: center; }
+#chat-input { flex: 1; background: transparent; border: none; color: var(--ash-grey-dark); font-size: 0.8rem; padding: 5px; resize: none; font-weight: 600; }
+#chat-input::placeholder { color: #888; }
+
+.chat-action-btn {
+    background: #166534; border: 1px solid #14532d; color: var(--white-pure);
+    border-radius: 4px; width: 40px; height: 36px; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; cursor: pointer;
+}
+
+.barcode-terminal { display: flex; flex-direction: column; gap: 15px; }
+.titan-input-elite {
+    background: #000; border: 1px solid #333; color: var(--accent-terminal);
+    padding: 10px; font-family: 'Courier New', monospace; font-size: 0.8rem; text-align: center;
+}
+
+.viewport-3d-container { width: 100%; aspect-ratio: 1/1; background: #000; border: 1px solid var(--border-light); position: relative; display: flex; cursor: zoom-in; }
+.v3d-canvas { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.v3d-controls { width: 35px; background: #0a0a0a; border-left: 1px solid #222; display: flex; flex-direction: column; z-index: 10; }
+.v3d-btn { background: none; border: none; color: #555; height: 32px; cursor: pointer; }
+
+.toggle-switch { position: relative; width: 36px; height: 18px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-switch label { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 20px; }
+.toggle-switch label:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+.toggle-switch input:checked + label { background-color: var(--accent-blue); }
+.toggle-switch input:checked + label:before { transform: translateX(18px); }
+
+.barcode-white-pure { position: absolute; background: var(--white-pure); border: 1px solid #ddd; z-index: 5; pointer-events: none; }
+.btn-premium { background: none; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 8px 15px; font-weight: 800; cursor: pointer; font-size: 0.65rem; }
+.btn-premium:hover { box-shadow: 0 0 10px var(--accent-blue); }
+.btn-reset { background: none; border: 1px solid var(--accent-danger); color: var(--accent-danger); padding: 8px 15px; font-weight: 800; cursor: pointer; font-size: 0.65rem; }
+.btn-reset:hover { box-shadow: 0 0 10px var(--accent-danger); }
+
+.titan-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.titan-overlay.active { display: flex !important; }
+
+.master-admin-panel {
+    position: fixed; top: 80px; left: 20px; background: rgba(10, 10, 10, 0.98);
+    border: 2px solid var(--accent-blue); padding: 20px; z-index: 9999;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.5); min-width: 280px; border-radius: 8px;
+    display: none; animation: master-slide 0.4s ease-out;
+}
+@keyframes master-slide { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+
+.admin-header { font-size: 0.8rem; font-weight: 900; color: var(--accent-blue); margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 8px; letter-spacing: 2px; text-align: center; }
+.admin-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.7rem; font-weight: 700; color: #fff; }
+.status-ok { color: var(--accent-terminal); text-shadow: 0 0 5px var(--accent-terminal); }
+
+/* 🌌 QUANTUM GHOST HUB - FLOATING GLASSMORPHISM 🌌 */
+.quantum-ghost-hub {
+    position: absolute; top: 20px; right: 20px; width: 220px;
+    background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 2000;
+    padding: 12px; animation: ghost-float 0.5s ease-out;
+}
+@keyframes ghost-float { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+.ghost-header {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.6rem; font-weight: 900; color: var(--accent-blue);
+    letter-spacing: 1.5px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;
+}
+.ghost-close { cursor: pointer; color: #fff; opacity: 0.5; transition: 0.3s; }
+.ghost-close:hover { opacity: 1; color: var(--accent-danger); }
+
+.ghost-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+.ghost-color { width: 25px; height: 25px; border: none; background: none; cursor: pointer; padding: 0; }
+.ghost-color::-webkit-color-swatch-wrapper { padding: 0; }
+.ghost-color::-webkit-color-swatch { border: 1px solid #444; border-radius: 4px; }
+
+.ghost-select {
+    flex: 1; background: #000; border: 1px solid #333; color: #fff;
+    font-size: 0.65rem; font-weight: 700; padding: 5px; border-radius: 4px;
+}
+
+.ghost-sliders { display: flex; flex-direction: column; gap: 8px; }
+.ghost-sl-item { display: flex; flex-direction: column; }
+.ghost-sl-item label { font-size: 0.5rem; color: #888; font-weight: 900; margin-bottom: 2px; text-transform: uppercase; }
+
+/* SLIDER ALIEN TECH */
+.ghost-sliders input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+.ghost-sliders input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 2px; background: #333; border-radius: 2px; }
+.ghost-sliders input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%;
+    background: var(--accent-blue); cursor: pointer; margin-top: -5px; box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* =========================================================================
+   UNIVERSAL ADAPTIVE ENGINE - MEDIA QUERIES ELITE (MOBILE/TABLET)
+   ========================================================================= */
+
+@media (max-width: 1024px) {
+    .side-dock.active { width: 300px; }
+    .hud-display { gap: 15px; padding: 8px 15px; }
+}
+
+@media (max-width: 768px) {
+    :root { --header-h: auto; }
+
+    .titan-header {
+        flex-direction: column; padding: 10px; height: auto; gap: 10px;
+    }
+    .header-center { width: 100%; order: 3; }
+    .hud-display {
+        width: 100%; display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 8px 5px; padding: 8px 10px; justify-items: center;
+    }
+    .hud-val { font-size: 0.75rem; }
+
+    .header-left, .header-right { width: 100%; justify-content: space-between; }
+    .brand { font-size: 0.8rem; letter-spacing: 1.5px; }
+
+    .main-layout { flex-direction: row; } /* Manteniamo orizzontale per le sidebar */
+
+    .side-dock.active {
+        width: 100vw !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 1500;
+        border: none !important;
+        padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px)); /* Protezione barra Android */
+    }
+
+    .viewport { padding: 10px; justify-content: center; padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+    .canvas-info { font-size: 0.5rem; margin-top: 15px; }
+
+    .portal-container { width: 95vw; height: 90vh; }
+    .portal-title { font-size: 0.9rem; }
+    .portal-search-input { padding: 10px 15px; font-size: 0.8rem; }
+
+    /* Luxury Lab Mobile Optimization */
+    .style-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Master Panel Mobile */
+    .master-admin-panel { left: 5%; width: 90%; top: 20%; }
+}
+
+/* Landscape Mobile Fix */
+@media (max-width: 768px) {
+    /* ... (mantengo le parti header) ... */
+
+    /* SOLUZIONE CLIC MULTIPLO: Rimpicciolisce la cover all'apertura */
+    .canvas-wrapper {
+        max-width: 80vw !important;
+        max-height: 50vh !important; /* Lascia spazio vitale per vedere il pulsante 3D */
+        margin: 0 auto; /* Rimosso margin: auto per evitare split verticale eccessivo */
+    }
+
+    /* SOLUZIONE BARRA ANDROID: Spinge i pulsanti lontano dai bordi del telefono */
+    .mini-sidebar.left-bar { padding-left: env(safe-area-inset-left, 10px); }
+    .mini-sidebar.right-bar {
+        padding-right: calc(env(safe-area-inset-right, 0px) + 25px);
+        /* Aggiunge 25px extra di sicurezza per non finire sotto i tasti Android */
+    }
+}
+
+/* FIX LANDSCAPE: Quando giri il telefono */
+@media (max-height: 500px) {
+    .titan-header { display: none; }
+    .viewport { padding: 2px; }
+    .canvas-wrapper { max-height: 70vh !important; }
+    .mini-sidebar { padding-bottom: 40px !important; } /* Solleva il pulsante 3D dalla zona tasti */
+}
+/* SOLUZIONE ORIZZONTALE: Restringe il pannello solo da destra a sinistra */
+@media (max-width: 950px) and (orientation: landscape) {
+    .side-dock.active {
+        /* Restringe la larghezza totale lasciando 100px di spazio a destra */
+        width: calc(100vw - 100px) !important;
+
+        /* Assicura che il pannello non tocchi mai il bordo destro del telefono */
+        right: auto !important;
+        left: 0 !important;
+    }
+}
+
+/* 🌌 TITAN PAYWALL - ULTRA LUXURY UI 🌌 */
+.paywall-container {
+    width: 90vw; max-width: 650px; background: rgba(10, 10, 10, 0.98);
+     max-height: 90vh;
+     overflow-y: auto;
+    backdrop-filter: blur(40px); border: 1px solid var(--accent-blue);
+    display: flex; flex-direction: column; box-shadow: 0 0 100px rgba(0, 212, 255, 0.3);
+    border-radius: 12px; overflow: hidden; animation: paywall-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes paywall-pop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+.paywall-content {
+    display: flex; gap: 20px; padding: 30px; justify-content: center; flex-wrap: wrap;
+    background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+}
+
+.pay-card {
+    flex: 1; min-width: 240px; background: #0f0f0f; border: 1px solid #333;
+    padding: 25px; border-radius: 8px; text-align: center;
+    transition: all 0.3s ease; position: relative;
+}
+
+.pay-card:hover { border-color: var(--accent-blue); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+.pay-card.highlighted { border: 2px solid var(--accent-gold); box-shadow: 0 0 20px rgba(255, 204, 0, 0.15); }
+
+.pay-icon { font-size: 2.5rem; margin-bottom: 15px; }
+.pay-title { font-size: 1rem; font-weight: 900; letter-spacing: 2px; color: var(--white-pure); margin-bottom: 10px; text-transform: uppercase; }
+.pay-desc { font-size: 0.75rem; color: #888; line-height: 1.5; margin-bottom: 25px; min-height: 45px; }
+
+.btn-buy-elite {
+    width: 100%; background: transparent; border: 1px solid var(--accent-blue);
+    color: var(--accent-blue); padding: 12px; font-weight: 900; font-size: 0.8rem;
+    cursor: pointer; letter-spacing: 2px; transition: 0.3s;
+}
+
+.btn-buy-elite:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
+
+.pay-card.highlighted .btn-buy-elite { border-color: var(--accent-gold); color: var(--accent-gold); }
+.pay-card.highlighted .btn-buy-elite:hover { background: var(--accent-gold); color: #000; box-shadow: 0 0 20px var(--accent-gold); }
+
+@media (max-width: 600px) {
+    .paywall-content { padding: 15px; gap: 15px; }
+    .paywall-container {
+        max-height: 95vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .paywall-content {
+        flex: 1;
+        overflow-y: auto; /* Se non ci sta, scorre solo il contenuto, la X resta ferma */
+        padding: 10px !important;
+        gap: 8px !important;
+    }
+    .pay-card {
+        padding: 12px !important;
+        min-width: 100% !important;
+    }
+    .pay-icon { font-size: 1.2rem !important; margin-bottom: 5px !important; }
+    .pay-title { font-size: 0.8rem !important; }
+    .pay-desc { font-size: 0.65rem !important; margin-bottom: 10px !important; min-height: auto !important; }
+    .btn-buy-elite { padding: 8px !important; font-size: 0.7rem !important; }
+    .pay-card { padding: 20px; }
+}
+
+/* 📱 TABLET OPTIMIZATION - HEADER & ANTI-CRUSH FIX 📱 */
+@media (min-width: 769px) and (max-width: 1280px) {
+
+    /* 1. FIX RESET FUORI SCHERMO: Stringiamo gli spazi nell'header */
+    .titan-header {
+        padding: 0 10px !important; /* Meno spazio ai bordi esterni */
+    }
+    .hud-display {
+        gap: 12px !important; /* Ridotto spazio tra Dorso, Pagine, ecc. (era 30px) */
+        padding: 8px 12px !important;
+    }
+    .header-right {
+        gap: 8px !important; /* Avvicina i pulsanti KIT, PDF e RESET */
+    }
+    .btn-header-pdf, .btn-reset {
+        padding: 8px 12px !important; /* Pulsanti leggermente più compatti */
+        font-size: 0.6rem !important;
+    }
+
+
+    .side-dock, .viewport {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+
+    .side-dock { flex-shrink: 0 !important; }
+    .side-dock.active { width: 25vw !important; }
+    .viewport { flex: 1 !important; min-width: 0 !important; overflow: hidden; }
+}
+/* NASCONDE IL PULSANTE PDF SINGOLO PER LASCIARE SOLO IL KIT PRO */
+#btn-generate-pdf-head {
+    display: none !important;
+}
+
+/* 🚀 POTENZIAMENTO SPAZIO SCRITTURA 🚀 */
+#chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--ash-grey-dark);
+    font-size: 0.9rem;
+    padding: 8px;
+    resize: none;
+    font-weight: 600;
+
+    /* Configurazione Area Dinamica */
+    min-height: 70px !important;      /* Spazio per 3 righe iniziali */
+    max-height: 120px !important;     /* Limite massimo prima dello scroll */
+    max-width: 100% !important;
+    overflow-y: auto !important;      /* Attiva scroll se il testo eccede */
+    white-space: pre-wrap !important; /* Mantiene gli a capo dell'utente */
+}
+/* 💖 STILE D'ELITE PER IL CUORICINO NELLA FINESTRA DI OFFERTA LIBERA */
+.pay-icon {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 25px;
+    display: inline-block;
+    color: #ff4b4b;
+    text-shadow: 0 0 35px rgba(255, 75, 75, 0.7);
+    animation: titanHeartBeat 2s infinite ease-in-out;
+}
+
+/* Animazione di battito cardiaco elegante */
+@keyframes titanHeartBeat {
+    0% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.15);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.15);
+    }
+    70% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
